@@ -5,10 +5,6 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
 const User = require("../../models/User");
 
 const register = {
-    get: (req, res) => {
-        res.send("Register");
-    },
-
     post: async (req, res) => {
         try {
             const { email, password, confirmPassword } = req.body;
