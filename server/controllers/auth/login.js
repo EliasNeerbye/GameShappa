@@ -27,7 +27,7 @@ const login = {
                 return res.status(401).json({ message: "Invalid credentials", success: false });
             }
 
-            res.status(200).json({
+            res.status(202).json({
                 message: "Login successful",
                 success: true,
             });
