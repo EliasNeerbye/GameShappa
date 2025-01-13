@@ -1,4 +1,6 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
 
 //Models
@@ -29,7 +31,19 @@ const register = {
             });
 
             await newUser.save();
-            console.log(newUser);
+
+            const newCookie = jwt.sign(
+                {
+                    email,
+                },
+                process.env.JWT_SECRET
+            );
+
+            res.cookie(newCookie, {
+                httoOnly: true,
+                maxAge: 100000,
+                secure: process.env.ENVIRONMENT === "production",
+            });
 
             res.status(201).json({ message: "User created successfully!", success: true });
         } catch (error) {
