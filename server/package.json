@@ -1,0 +1,24 @@
+{
+  "name": "gameshappa",
+  "version": "1.0.0",
+  "description": "Online Gaming Store",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EliasNeerbye/GameShappa.git"
+  },
+  "author": "Blank",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EliasNeerbye/GameShappa/issues"
+  },
+  "homepage": "https://github.com/EliasNeerbye/GameShappa#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
