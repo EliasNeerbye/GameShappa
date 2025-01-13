@@ -10,18 +10,20 @@ const register = {
     },
 
     post: async (req, res) => {
-        console.log("POST");
         try {
             const { email, password, confirmPassword } = req.body;
+            console.log(email, password, confirmPassword);
 
-            if (typeof password !== "string") return res.status(400).send({ message: "Password should be string!", success: false });
+            console.log(typeof password);
+            if (typeof password !== "string") return res.status(400).json({ message: "Password should be string!", success: false });
 
-            if (typeof email !== "string") return res.status(400).send({ message: "Email should be string!", success: false });
+            console.log(typeof email);
+            if (typeof email !== "string") return res.status(400).json({ message: "Email should be string!", success: false });
 
             if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
-                return res.status(400).send({ message: "Email is not correct!", success: false });
+                return res.status(400).json({ message: "Email is not correct!", success: false });
 
-            if (password !== confirmPassword) return res.status(400).send({ message: "Passwords do not match!", success: false });
+            if (password !== confirmPassword) return res.status(400).json({ message: "Passwords do not match!", success: false });
 
             const hash = await bcrypt.hash(password, saltRounds);
 
@@ -33,10 +35,10 @@ const register = {
             await newUser.save();
             console.log(newUser);
 
-            res.status(201).send({ message: "User created successfully!", success: true });
+            res.status(201).json({ message: "User created successfully!", success: true });
         } catch (error) {
             console.error(error);
-            res.status(500).send({ message: "Internal server error", success: false });
+            res.status(500).json({ message: "Internal server error", success: false });
         }
     },
 };
