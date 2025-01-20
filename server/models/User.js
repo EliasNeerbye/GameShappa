@@ -37,6 +37,11 @@ const userSchema = new Schema(
             },
             required: false,
         },
+
+        role: {
+            type: String,
+            required: false,
+        },
     },
     { timestamps: true }
 );

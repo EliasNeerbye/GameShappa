@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+
+const jwtToken = require("../../util/jwt");
 
 const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
 
@@ -10,16 +11,14 @@ const register = {
     post: async (req, res) => {
         try {
             const { email, password, confirmPassword } = req.body;
-            console.log(email, password, confirmPassword);
-
-            console.log(typeof password);
             if (typeof password !== "string") return res.status(400).json({ message: "Password should be string!", success: false });
-
-            console.log(typeof email);
             if (typeof email !== "string") return res.status(400).json({ message: "Email should be string!", success: false });
 
             if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
                 return res.status(400).json({ message: "Email is not correct!", success: false });
+
+            const alreadyExists = await User.findOne({ email });
+            if (alreadyExists) return res.status(400).json({ message: "Email is already in use!", success: false });
 
             if (password !== confirmPassword) return res.status(400).json({ message: "Passwords do not match!", success: false });
 
@@ -32,16 +31,11 @@ const register = {
 
             await newUser.save();
 
-            const newCookie = jwt.sign(
-                {
-                    email,
-                },
-                process.env.JWT_SECRET
-            );
+            const newCookie = jwtToken(email);
 
-            res.cookie(newCookie, {
-                httoOnly: true,
-                maxAge: 100000,
+            res.cookie("jwt", newCookie, {
+                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 7,
                 secure: process.env.ENVIRONMENT === "production",
             });
 

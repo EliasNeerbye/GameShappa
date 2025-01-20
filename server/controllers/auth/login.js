@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 
+const jwtToken = require("../../util/jwt");
+
 // Models
 const User = require("../../models/User");
 
@@ -26,6 +28,14 @@ const login = {
             if (!isMatch) {
                 return res.status(401).json({ message: "Invalid credentials", success: false });
             }
+
+            const newCookie = jwtToken(email);
+
+            res.cookie("jwt", newCookie, {
+                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 7,
+                secure: process.env.ENVIRONMENT === "production",
+            });
 
             res.status(202).json({
                 message: "Login successful",
