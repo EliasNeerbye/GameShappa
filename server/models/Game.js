@@ -46,6 +46,7 @@ const gameSchema = new Schema(
             type: String,
             enum: ["In Development", "Alpha", "Beta", "Early Access", "Released"],
             required: true,
+            default: "In Development",
         },
         images: [
             {

@@ -11,12 +11,15 @@ app.use(express.urlencoded({ extended: true }));
 
 //Route Imports
 const authRoutes = require("./routes/authRoutes");
+const gameRoutes = require("./routes/gameRoutes");
+
 app.get("/", (req, res) => {
     res.send("Hello");
 });
 
 //Route Connections
 app.use("/api/auth", authRoutes);
+app.use("/api/games", gameRoutes);
 
 
 app.listen(process.env.PORT);

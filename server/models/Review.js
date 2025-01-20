@@ -22,9 +22,14 @@ const reviewsSchema = new Schema(
             max: 10,
             min: 1,
         },
+        game: {
+            type: Schema.Types.ObjectId,
+            ref: "Game",
+            required: true,
+        },
     },
     { timestamps: true }
 );
 
-const Reviews = mongoose.model("Reviews", reviewsSchema);
+const Reviews = mongoose.model("Review", reviewsSchema);
 module.exports = Reviews;
