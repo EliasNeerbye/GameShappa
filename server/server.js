@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 //Route Imports
 const authRoutes = require("./routes/authRoutes");
 const gameRoutes = require("./routes/gameRoutes");
+const tagRoutes = require("./routes/tagRoutes");
 
 app.get("/", (req, res) => {
     res.send("Hello");
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 
 //Route Connections
 app.use("/api/auth", authRoutes);
+app.use("/api/tags", tagRoutes);
 app.use("/api/games", gameRoutes);
 
 
