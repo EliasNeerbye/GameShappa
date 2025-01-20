@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 
 // Util
 const jwtToken = require("../../util/jwt");
+const createCookie = require("../../util/cookie");
 
 // Models
 const User = require("../../models/User");
@@ -11,7 +12,6 @@ const login = {
     post: async (req, res) => {
         try {
             const { email, password } = req.body;
-            console.log(email, password);
 
             if (!email || !password) {
                 return res.status(400).json({ message: "Email and password are required", success: false });
@@ -33,11 +33,11 @@ const login = {
 
             const newCookie = jwtToken(email);
 
-            res.cookie("jwt", newCookie, {
-                httpOnly: true,
-                maxAge: 1000 * 60 * 60 * 24 * 7,
-                secure: process.env.ENVIRONMENT === "production",
-            });
+            try {
+                createCookie(res, "jwt", newCookie);
+            } catch (err) {
+                return res.status(500).json({ message: "User created, but login cookie was not created!", success: false });
+            }
 
             res.status(202).json({
                 message: "Login successful",
