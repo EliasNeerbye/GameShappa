@@ -3,7 +3,7 @@ const Game = require("../../models/Game");
 
 const getGame = async (req, res) => {
     const games = await Game.find();
-    if (!games) {
+    if (games.length < 1) {
         res.status(404).json({ message: "No games found", success: false, games: null });
     }
 
