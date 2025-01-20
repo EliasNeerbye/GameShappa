@@ -1,5 +1,7 @@
+// imports
 const bcrypt = require("bcrypt");
 
+// Util
 const jwtToken = require("../../util/jwt");
 
 // Models

@@ -1,11 +1,14 @@
+// Imports
 const bcrypt = require("bcrypt");
 
+// Util
 const jwtToken = require("../../util/jwt");
-
-const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
 
 //Models
 const User = require("../../models/User");
+
+// Constants
+const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
 
 const register = {
     post: async (req, res) => {
