@@ -8,7 +8,7 @@ const gameController = {
         all: getTags,
         one: getTag,
     },
-    post: async (req, res) => {
+    create: async (req, res) => {
         try {
             const { name } = req.body;
             const newTag = Tag.new({ name });
@@ -19,7 +19,7 @@ const gameController = {
             res.status(500).json({ message: "Internal server error!", success: true });
         }
     },
-    put: async (req, res) => {
+    edit: async (req, res) => {
         try {
             await Tag.findByIdAndUpdate(req.params.id, req.body);
             return res.status(200).json({ message: "Tag updated successfully!", success: true });
