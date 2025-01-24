@@ -1,4 +1,4 @@
-const Tag = require("../models/Tag");
+const Tag = require("../../models/Tag");
 
 const getTags = async (req, res) => {
     const tags = await Tag.find();
