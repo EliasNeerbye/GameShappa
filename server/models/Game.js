@@ -57,14 +57,14 @@ const gameSchema = new Schema(
         tags: [
             {
                 type: Schema.Types.ObjectId,
-                ref: "Tags",
+                ref: "Tag",
                 required: false,
             },
         ],
         reviews: [
             {
                 type: Schema.Types.ObjectId,
-                ref: "Reviews",
+                ref: "Review",
                 required: false,
             },
         ],

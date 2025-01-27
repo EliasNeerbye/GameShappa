@@ -14,7 +14,7 @@ const reviewController = {
     },
     getUserReviews: async (req, res) => {
         try {
-            const result = await Review.find({ game: req.params.userId });
+            const result = await Review.find({ user: req.params.userId });
             console.log(result);
             return res.status(200).json({ message: "Reviews found!", reviews: result, success: true });
         } catch (error) {
@@ -33,12 +33,31 @@ const reviewController = {
     },
     create: async (req, res) => {
         try {
-            const gameId = req.params.gameId;
+            let userId = undefined;
+            if (req.userExists) userId = req.user.userId;
+            const game = await Game.findById(req.params.gameId);
+
+            if (!game) return res.status(404).json({ message: "Game not found!", review: null, success: false });
+
             const { comment, stars, recommended } = req.body;
-            return res.status(201).json({ message: "Review created!", review: null, success: true });
+
+            const newReview = new Review({
+                user: userId,
+                game: game._id,
+                comment,
+                recommended,
+                stars,
+            });
+
+            await newReview.save();
+
+            game.reviews.push(newReview._id);
+            await game.save();
+
+            return res.status(201).json({ message: "Review created!", review: newReview, success: true });
         } catch (error) {
             console.log(error);
-            return res.status(500).json({ message: "Internal server error", success: false });
+            return res.status(500).json({ message: "Internal server error", review: null, success: false });
         }
     },
 

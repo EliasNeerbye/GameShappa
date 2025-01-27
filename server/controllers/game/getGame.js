@@ -2,7 +2,7 @@
 const Game = require("../../models/Game");
 
 const getGames = async (req, res) => {
-    const game = await Game.findById(req.params.id);
+    const game = await Game.findById(req.params.id).populate("reviews");
 
     try {
         if (!game) {
