@@ -35,10 +35,10 @@ const register = {
 
             await newUser.save();
 
-            const newCookie = jwtToken(email);
+            const newCookie = await jwtToken(email);
 
             try {
-                createCookie(res, "jwt", newCookie);
+                await createCookie(res, "jwt", newCookie);
             } catch (err) {
                 return res.status(500).json({ message: "User created, but login cookie was not created!", success: false });
             }
