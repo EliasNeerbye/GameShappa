@@ -5,6 +5,7 @@ const logger = (req, res, next) => {
     console.log("Body:", req.body);
     console.log("Query:", req.query);
     console.log("Params:", req.params);
+    console.log("IP:", req.ip);
     next();
 };
 
