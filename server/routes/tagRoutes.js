@@ -10,7 +10,8 @@ const logger = require("../middleware/logger");
 router.get("/", logger, tagController.get.all);
 router.get("/:id", logger, tagController.get.one);
 
-router.post("/", logger, tagController.create);
+router.post("/", logger, tagController.create.one);
+router.post("/multiple", logger, tagController.create.multiple);
 router.delete("/:id", logger, tagController.delete);
 router.put("/:id", logger, tagController.edit);
 

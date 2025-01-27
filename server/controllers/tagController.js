@@ -2,22 +2,17 @@ const Tag = require("../models/Tag");
 
 const getTags = require("./tag/getTags");
 const getTag = require("./tag/getTag");
+const createTag = require("./tag/createTag");
+const createTags = require("./tag/createTags");
 
 const gameController = {
     get: {
         all: getTags,
         one: getTag,
     },
-    create: async (req, res) => {
-        try {
-            const { name } = req.body;
-            const newTag = Tag.new({ name });
-            await newTag.save();
-            res.status(200).json({ message: "Tag created!", success: true });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: "Internal server error!", success: true });
-        }
+    create: {
+        one: createTag,
+        multiple: createTags,
     },
     edit: async (req, res) => {
         try {
