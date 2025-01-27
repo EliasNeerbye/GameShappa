@@ -32,9 +32,10 @@ const reviewController = {
         }
     },
     create: async (req, res) => {
+        if (!req.userExists) return res.status(401).json({ message: "User not found!", review: null, success: false });
+
         try {
-            let userId = undefined;
-            if (req.userExists) userId = req.user.userId;
+            const userId = req.user.userId;
             const game = await Game.findById(req.params.gameId);
 
             if (!game) return res.status(404).json({ message: "Game not found!", review: null, success: false });
