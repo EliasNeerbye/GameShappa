@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+    --pixel-green: #00ff00;
+    --pixel-dark-green: #009900;
+    --pixel-black: #000;
+    --pixel-gray: #333;
+}
+
+.retro-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--pixel-black);
+    color: var(--pixel-green);
+    border: 5px solid var(--pixel-green);
+    box-shadow: 6px 6px 0 var(--pixel-dark-green);
+    font-family: 'VT323', monospace;
+    font-size: 1.5rem;
+}
+
+.navbar-menu-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.navbar-menu-open {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+.navbar-toggle-btn {
+    background: none;
+    border: 3px solid var(--pixel-green);
+    color: var(--pixel-green);
+    cursor: pointer;
+    padding: 0.75rem;
+    transition: all 0.2s ease;
+    font-size: 1.2rem;
+}
+
+.navbar-toggle-btn:hover {
+    background-color: var(--pixel-dark-green);
+}
+
+.navbar-toggle-btn svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--pixel-green);
+}
+
+/* Navbar Link Styling */
+.retro-navbar a {
+    color: var(--pixel-green);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--pixel-green);
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.retro-navbar a:hover {
+    background-color: var(--pixel-dark-green);
+    text-shadow: 2px 2px var(--pixel-gray);
+}
+
+/* Slide-in Animation */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
