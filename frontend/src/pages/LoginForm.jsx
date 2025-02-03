@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import PixelButton from "../components/PixelButton";
 import PixelInput from "../components/PixelInput";
 import PixelFormContainer from "../components/PixelFormContainer";
+import { AuthContext } from "../auth/AuthContext";
 
 const loginUrl = import.meta.env.VITE_BACKEND_URL + "/api/auth/login";
 
 const LoginForm = () => {
+    const { user } = useContext(AuthContext);
+
+    if (user) {
+        window.location.href = "/profile";
+    }
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -53,29 +60,31 @@ const LoginForm = () => {
             setLoginError("");
 
             try {
-                const response = await axios.post(
-                    loginUrl,
-                    {
-                        email: formData.email,
-                        password: formData.password,
-                    },
-                    {
-                        withCredentials: true,
-                        headers: {
-                            "Content-Type": "application/json",
+                axios
+                    .post(
+                        loginUrl,
+                        {
+                            email: formData.email,
+                            password: formData.password,
                         },
-                    }
-                );
-
-                // Handle successful login
-                if (response.data.token) {
-                    localStorage.setItem("token", response.data.token);
-                }
-
-                setLoginSuccess(true);
-                setTimeout(() => {
-                    window.location.href = "/"; // Redirect to home page
-                }, 2000);
+                        {
+                            withCredentials: true,
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        if (response.data.success) {
+                            setLoginSuccess(true);
+                            setTimeout(() => {
+                                window.location.href = "/profile";
+                            }, 2000);
+                        } else {
+                            setLoginSuccess(false);
+                            setLoginError(response.data.message || "Login failed");
+                        }
+                    });
             } catch (error) {
                 if (error.response) {
                     setLoginError(error.response.data.message || "Login failed");

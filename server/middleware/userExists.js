@@ -12,7 +12,7 @@ const userExists = async (req, res, next) => {
         }
     } else {
         req.userExists = false;
-        req.user.userId = null;
+        req.user = { userId: null }; // Ensure req.user is an object with userId set to null
     }
 
     next();

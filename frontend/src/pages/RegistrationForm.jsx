@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import PixelButton from "../components/PixelButton";
@@ -7,9 +7,17 @@ import PixelFormContainer from "../components/PixelFormContainer";
 
 import "../css/pages/RegistrationForm.css";
 
+import { AuthContext } from "../auth/AuthContext";
+
 const registerUrl = import.meta.env.VITE_BACKEND_URL + "/api/auth/register";
 
 const RegistrationForm = () => {
+    const { user } = useContext(AuthContext);
+
+    if (user) {
+        window.location.href = "/profile";
+    }
+
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -68,7 +76,7 @@ const RegistrationForm = () => {
 
     const sendRegistrationRequest = async (userData) => {
         try {
-            const response = await axios.post(
+            const response = axios.post(
                 registerUrl,
                 {
                     username: userData.username,
@@ -108,22 +116,15 @@ const RegistrationForm = () => {
             try {
                 const response = await sendRegistrationRequest(formData);
                 setRegistrationSuccess(true);
-
-                // Handle the response data
-                if (response.token) {
-                    // Store the token if your backend sends one
-                    localStorage.setItem("token", response.token);
+                if (response.success) {
+                    setRegistrationSuccess(true);
+                    setTimeout(() => {
+                        window.location.href = "/profile";
+                    }, 3000);
+                } else {
+                    setRegistrationSuccess(false);
+                    setRegistrationError(response.message);
                 }
-
-                if (response.message) {
-                    // Show the success message from the server
-                    setRegistrationSuccess(response.message);
-                }
-
-                // Give user time to see the success message before redirect
-                setTimeout(() => {
-                    window.location.href = "/login";
-                }, 3000);
             } catch (error) {
                 setRegistrationError(error.message);
             } finally {
