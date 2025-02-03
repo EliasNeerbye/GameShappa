@@ -1,0 +1,21 @@
+.register-footer {
+    margin-top: var(--space-md);
+    text-align: center;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .pixel-form-container {
+    margin: var(--space-md) auto;
+    padding: var(--space-sm);
+    }
+    
+    .pixel-button {
+    width: 100%;
+    }
+}

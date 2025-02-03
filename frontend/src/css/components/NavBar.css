@@ -1,82 +1,158 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
-:root {
-    --pixel-green: #00ff00;
-    --pixel-dark-green: #009900;
-    --pixel-black: #000;
-    --pixel-gray: #333;
+/* Base styles */
+.navbar {
+    background-color: var(--bg-primary);
+    border: var(--border-style);
+    box-shadow: var(--shadow-pixel);
+    font-family: var(--font-primary);
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-.retro-navbar {
+.navbar-container {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    background-color: var(--pixel-black);
-    color: var(--pixel-green);
-    border: 5px solid var(--pixel-green);
-    box-shadow: 6px 6px 0 var(--pixel-dark-green);
-    font-family: 'VT323', monospace;
-    font-size: 1.5rem;
+    gap: var(--space-md);
+    padding: var(--space-sm);
 }
 
-.navbar-menu-container {
+/* Left side styles */
+.navbar-left {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: var(--space-sm);
 }
 
-.navbar-menu-open {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    animation: slideIn 0.3s ease-out;
-}
-
-.navbar-toggle-btn {
-    background: none;
-    border: 3px solid var(--pixel-green);
-    color: var(--pixel-green);
-    cursor: pointer;
-    padding: 0.75rem;
-    transition: all 0.2s ease;
-    font-size: 1.2rem;
-}
-
-.navbar-toggle-btn:hover {
-    background-color: var(--pixel-dark-green);
-}
-
-.navbar-toggle-btn svg {
-    width: 32px;
-    height: 32px;
-    stroke: var(--pixel-green);
-}
-
-/* Navbar Link Styling */
-.retro-navbar a {
-    color: var(--pixel-green);
-    text-decoration: none;
+.navbar-logo {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
     font-weight: bold;
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--pixel-green);
-    transition: all 0.2s ease;
-    display: inline-block;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 300ms ease;
 }
 
-.retro-navbar a:hover {
-    background-color: var(--pixel-dark-green);
-    text-shadow: 2px 2px var(--pixel-gray);
+.navbar-logo:hover {
+    color: var(--pixel-green-hover);
 }
 
-/* Slide-in Animation */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(50%);
+.navbar-main-links {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+/* Link styles */
+.navbar-link {
+    padding: var(--space-xs) var(--space-sm);
+    border: var(--border-style);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: background-color 300ms ease;
+}
+
+.navbar-link:hover {
+    background-color: var(--bg-accent);
+}
+
+/* Right side styles */
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-expandable {
+    display: flex;
+    overflow: hidden;
+    transition: all 300ms ease;
+    width: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.navbar-expandable.expanded {
+    width: auto;
+    opacity: 1;
+    visibility: visible;
+    margin-inline-end: var(--space-sm);
+}
+
+.navbar-menu-links {
+    display: flex;
+    gap: var(--space-sm);
+    white-space: nowrap;
+}
+
+.navbar-toggle {
+    padding: var(--space-xs);
+    border: var(--border-style);
+    background: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: background-color 300ms ease;
+}
+
+.navbar-toggle:hover {
+    background-color: var(--bg-accent);
+}
+
+/* Mobile menu button */
+.mobile-menu-button {
+    display: none;
+    padding: var(--space-xs);
+    border: var(--border-style);
+    background: none;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+/* Mobile menu */
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    background-color: var(--bg-primary);
+    border-block-start: var(--border-style);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 300ms ease;
+}
+
+.mobile-menu.open {
+    max-height: 100vh;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .navbar-main-links {
+        display: none;
     }
-    to {
-        opacity: 1;
-        transform: translateX(0);
+
+    .navbar-right {
+        display: none;
     }
+
+    .mobile-menu-button {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: flex;
+    }
+}
+
+@media (forced-colors: active) {
+    .navbar,
+    .navbar-link,
+    .navbar-toggle,
+    .mobile-menu-button {
+        border: var(--border-style);
+    }
+}
+
+.navbar-more-text{
+    font-size: 1.25rem;
 }

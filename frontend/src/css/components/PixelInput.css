@@ -1,0 +1,58 @@
+.pixel-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.pixel-label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--text-primary);
+}
+
+.pixel-input-wrapper {
+    position: relative;
+}
+
+.pixel-input {
+    width: 100%;
+    padding: var(--space-sm);
+    background-color: var(--bg-primary);
+    border: var(--border-style);
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: all 300ms ease;
+}
+
+.pixel-input:focus {
+    outline: none;
+    box-shadow: var(--shadow-glow);
+}
+
+.pixel-input.error {
+    border-color: #ff4444;
+}
+
+.pixel-input-icon {
+    position: absolute;
+    right: var(--space-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.pixel-input-icon button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    cursor: pointer;
+}
+
+.pixel-error-message {
+    color: #ff4444;
+    font-size: 0.8rem;
+    margin-top: var(--space-xs);
+}

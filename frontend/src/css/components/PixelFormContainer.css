@@ -1,0 +1,22 @@
+.pixel-form-container {
+    max-width: min(600px, 90%);
+    margin: var(--space-lg) auto;
+    padding: var(--space-md);
+    border: var(--border-style);
+    box-shadow: var(--shadow-pixel);
+    background-color: var(--bg-secondary);
+}
+
+.pixel-form-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: var(--space-md);
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.pixel-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}

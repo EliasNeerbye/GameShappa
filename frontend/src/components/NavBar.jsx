@@ -1,54 +1,79 @@
 import { useState } from "react";
+import { ChevronRight, ChevronLeft, Menu } from "lucide-react";
 import "../css/components/NavBar.css";
 
-const Navbar = () => {
+const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     return (
-        <nav className="retro-navbar">
-            <div className="navbar-left">
-                <h1 className="navbar-title">Game Hub</h1>
-                <div className="navbar-links">
-                    <a href="/" className="navbar-link">
-                        Home
+        <nav className="navbar">
+            <div className="navbar-container">
+                {/* Left Side - Logo and Main Links */}
+                <div className="navbar-left">
+                    <a href="/" className="navbar-logo">
+                        Game Shappa
                     </a>
-                    <a href="/games" className="navbar-link">
-                        All Games
-                    </a>
+                    <div className="navbar-main-links">
+                        <a href="/games" className="navbar-link">
+                            All Games
+                        </a>
+                        <a href="/search" className="navbar-link">
+                            Search
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div className="navbar-right">
-                <div className="navbar-menu-container">
-                    {isOpen ? (
-                        <div className="navbar-menu-open">
+
+                {/* Mobile Menu Button */}
+                <button className="mobile-menu-button" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                    <Menu size={24} />
+                </button>
+
+                {/* Right Side - Expandable Menu */}
+                <div className="navbar-right">
+                    {/* Animated Expanding Links */}
+                    <div className={`navbar-expandable ${isOpen ? "expanded" : ""}`}>
+                        <div className="navbar-menu-links">
                             <a href="/profile" className="navbar-link">
                                 Profile
                             </a>
                             <a href="/settings" className="navbar-link">
                                 Settings
                             </a>
-                            <a href="/logout" className="navbar-link">
-                                Logout
+                            <a href="/about" className="navbar-link">
+                                About
                             </a>
                         </div>
-                    ) : null}
-                    <button onClick={() => setIsOpen(!isOpen)} className={`navbar-toggle-btn ${isOpen ? "navbar-close-btn" : "navbar-menu-btn"}`}>
-                        {isOpen ? (
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        ) : (
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="3" y1="12" x2="21" y2="12"></line>
-                                <line x1="3" y1="6" x2="21" y2="6"></line>
-                                <line x1="3" y1="18" x2="21" y2="18"></line>
-                            </svg>
-                        )}
+                    </div>
+
+                    {/* Toggle Button */}
+                    <button onClick={() => setIsOpen(!isOpen)} className="navbar-toggle">
+                        {isOpen ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+                        <p className="navbar-more-text">More</p>
                     </button>
                 </div>
+            </div>
+
+            {/* Mobile Menu */}
+            <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+                <a href="/games" className="navbar-link">
+                    All Games
+                </a>
+                <a href="/search" className="navbar-link">
+                    Search
+                </a>
+                <a href="/profile" className="navbar-link">
+                    Profile
+                </a>
+                <a href="/settings" className="navbar-link">
+                    Settings
+                </a>
+                <a href="/about" className="navbar-link">
+                    About
+                </a>
             </div>
         </nav>
     );
 };
 
-export default Navbar;
+export default NavBar;

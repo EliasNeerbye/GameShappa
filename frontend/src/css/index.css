@@ -1,19 +1,110 @@
-:root{
-    --mainBackgroundColor: aliceblue;
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+
+:root {
+    /* Core colors */
+    --pixel-green: #4ade80;
+    --pixel-green-hover: #86efac;
+    --pixel-green-shadow: #009900;
+    --pixel-black: #000000;
+    --pixel-dark: #064e3b;
+    
+    /* Background colors */
+    --bg-primary: var(--pixel-black);
+    --bg-secondary: #111111;
+    --bg-accent: var(--pixel-dark);
+    
+    /* Text colors */
+    --text-primary: var(--pixel-green);
+    --text-secondary: #ffffff;
+    --text-muted: #888888;
+    
+    /* Border styles */
+    --border-thickness: clamp(2px, 0.25vw, 4px);
+    --border-color: var(--pixel-green);
+    --border-style: var(--border-thickness) solid var(--border-color);
+    
+    /* Shadows */
+    --shadow-pixel: 0.3rem 0.3rem 0 var(--pixel-green-shadow);
+    --shadow-glow: 0 0 10px var(--pixel-green);
+    
+    /* Spacing */
+    --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --space-sm: clamp(0.75rem, 2vw, 1rem);
+    --space-md: clamp(1rem, 3vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 4vw, 2rem);
+    
+    /* Typography */
+    --font-primary: 'VT323', monospace;
+    --font-display: 'Press Start 2P', cursive;
+    --font-size-base: 18px;
+    --line-height-base: 1.5;
 }
 
-
-*{
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-html{
+html {
     height: 100%;
-    font-size: 16px;
+    font-size: var(--font-size-base);
+    scrollbar-width: thin;
+    scrollbar-color: var(--pixel-green) var(--pixel-black);
 }
 
-body{
-    background: var(--mainBackgroundColor);
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
     min-height: 100%;
+    font-family: var(--font-primary);
+    line-height: var(--line-height-base);
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pixel-green);
+    border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pixel-green-hover);
+}
+
+/* Base styles for common elements */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--pixel-green-hover);
+    text-shadow: var(--shadow-glow);
+}
+
+button {
+    font-family: var(--font-primary);
+    cursor: pointer;
+}
+
+/* Selection style */
+::selection {
+    background: var(--pixel-green);
+    color: var(--pixel-black);
 }
