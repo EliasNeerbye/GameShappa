@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { ChevronRight, ChevronLeft, Menu } from "lucide-react";
-import { AuthContext } from "../auth/AuthContext"; // ✅ Import AuthContext
+import { AuthContext } from "../auth/AuthContext";
 import "../css/components/NavBar.css";
 
 const NavBar = () => {
