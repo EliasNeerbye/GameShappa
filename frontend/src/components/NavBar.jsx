@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ChevronRight, ChevronLeft, Menu } from "lucide-react";
+import { AuthContext } from "../auth/AuthContext"; // ✅ Import AuthContext
 import "../css/components/NavBar.css";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const { user } = useContext(AuthContext);
 
     return (
         <nav className="navbar">
@@ -31,15 +34,25 @@ const NavBar = () => {
 
                 {/* Right Side - Expandable Menu */}
                 <div className="navbar-right">
-                    {/* Animated Expanding Links */}
                     <div className={`navbar-expandable ${isOpen ? "expanded" : ""}`}>
                         <div className="navbar-menu-links">
-                            <a href="/profile" className="navbar-link">
-                                Profile
-                            </a>
-                            <a href="/settings" className="navbar-link">
-                                Settings
-                            </a>
+                            {user ? (
+                                <>
+                                    <a href="/profile" className="navbar-link">
+                                        {user.name} (Profile)
+                                    </a>
+                                    <a href="/settings" className="navbar-link">
+                                        Settings
+                                    </a>
+                                    <a href="/logout" className="navbar-link">
+                                        Logout
+                                    </a>
+                                </>
+                            ) : (
+                                <a href="/login" className="navbar-link">
+                                    Login
+                                </a>
+                            )}
                             <a href="/about" className="navbar-link">
                                 About
                             </a>
@@ -62,12 +75,23 @@ const NavBar = () => {
                 <a href="/search" className="navbar-link">
                     Search
                 </a>
-                <a href="/profile" className="navbar-link">
-                    Profile
-                </a>
-                <a href="/settings" className="navbar-link">
-                    Settings
-                </a>
+                {user ? (
+                    <>
+                        <a href="/profile" className="navbar-link">
+                            {user.name} (Profile)
+                        </a>
+                        <a href="/settings" className="navbar-link">
+                            Settings
+                        </a>
+                        <a href="/logout" className="navbar-link">
+                            Logout
+                        </a>
+                    </>
+                ) : (
+                    <a href="/login" className="navbar-link">
+                        Login
+                    </a>
+                )}
                 <a href="/about" className="navbar-link">
                     About
                 </a>
