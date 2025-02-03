@@ -11,6 +11,10 @@ const User = require("../../models/User");
 const login = {
     post: async (req, res) => {
         try {
+            if (req.userExists) {
+                return res.status(403).json({ message: "You already have a user!", success: false });
+            }
+
             const { email, password } = req.body;
 
             if (!email || !password) {

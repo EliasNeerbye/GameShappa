@@ -14,6 +14,9 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
 const register = {
     post: async (req, res) => {
         try {
+            if (req.userExists) {
+                return res.status(403).json({ message: "You already have a user!", success: false });
+            }
             const { email, password, confirmPassword } = req.body;
             if (typeof password !== "string") return res.status(400).json({ message: "Password should be string!", success: false });
             if (typeof email !== "string") return res.status(400).json({ message: "Email should be string!", success: false });
