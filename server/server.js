@@ -9,11 +9,11 @@ mongoose.connect(process.env.MONGODB_URI).then(console.log(`Connected to mongodb
 
 const corsOptions = {
     origin: function (origin, callback) {
-        const allowedOrigins = ["http://gameshappa.caracal.ikt-fag.no", "http://10.12.45.82"];
+        const allowedOrigins = ["http://gameshappa.caracal.ikt-fag.no", "http://10.12.45.82", "http://localhost:5173"];
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
-            callback(new Error("CORS not allowed"));
+            callback("CORS not allowed");
         }
     },
     credentials: true,

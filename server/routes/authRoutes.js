@@ -11,6 +11,7 @@ const userExists = require("../middleware/userExists");
 
 router.post("/login", logger, verifyToken, userExists, authController.login);
 router.post("/register", logger, verifyToken, userExists, authController.register);
+router.post("/logout", logger, verifyToken, userExists, authController.logout);
 
 router.get("/getUser", logger, verifyToken, userExists, authController.getUser);
 
