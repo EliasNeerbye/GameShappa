@@ -1,0 +1,86 @@
+.tag-selector {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+.tag-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--bg-accent);
+    border: var(--border-style);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+
+.tag-button:hover:not(:disabled) {
+    background-color: var(--pixel-green);
+    color: var(--pixel-black);
+}
+
+.tag-button.selected {
+    background-color: var(--pixel-green);
+    color: var(--pixel-black);
+}
+
+.tag-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.new-tag-input {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.new-tag-input .pixel-input {
+    flex: 1;
+}
+
+.add-tag-btn {
+    padding: var(--space-xs);
+    background-color: var(--pixel-green);
+    border: var(--border-style);
+    color: var(--pixel-black);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 300ms ease;
+}
+
+.add-tag-btn:hover:not(:disabled) {
+    background-color: var(--pixel-green-hover);
+    box-shadow: var(--shadow-pixel);
+    transform: translate(-0.3rem, -0.3rem);
+}
+
+.add-tag-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .tag-button {
+        font-size: 0.8rem;
+    }
+    
+    .new-tag-input {
+        flex-direction: column;
+    }
+    
+    .add-tag-btn {
+        width: 100%;
+    }
+}

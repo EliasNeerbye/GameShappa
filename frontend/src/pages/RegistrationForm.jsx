@@ -4,6 +4,7 @@ import { Eye, EyeOff } from "lucide-react";
 import PixelButton from "../components/PixelButton";
 import PixelInput from "../components/PixelInput";
 import PixelFormContainer from "../components/PixelFormContainer";
+import PixelToast from "../components/PixelToast";
 
 import "../css/pages/RegistrationForm.css";
 
@@ -29,8 +30,7 @@ const RegistrationForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [registrationError, setRegistrationError] = useState("");
-    const [registrationSuccess, setRegistrationSuccess] = useState(false);
+    const [toast, setToast] = useState({ message: "", type: "", visible: false });
 
     const validateForm = () => {
         const newErrors = {};
@@ -70,13 +70,12 @@ const RegistrationForm = () => {
             ...prev,
             [name]: value,
         }));
-        // Clear any previous registration errors when user makes changes
-        setRegistrationError("");
+        setToast({ message: "", type: "", visible: false });
     };
 
     const sendRegistrationRequest = async (userData) => {
         try {
-            const response = axios.post(
+            const response = await axios.post(
                 registerUrl,
                 {
                     username: userData.username,
@@ -95,13 +94,10 @@ const RegistrationForm = () => {
             return response.data;
         } catch (error) {
             if (error.response) {
-                // The server responded with a status code outside of 2xx
                 throw new Error(error.response.data.message || "Registration failed");
             } else if (error.request) {
-                // The request was made but no response was received
                 throw new Error("No response from server. Please try again.");
             } else {
-                // Something happened in setting up the request
                 throw new Error("Failed to send request. Please try again.");
             }
         }
@@ -111,22 +107,32 @@ const RegistrationForm = () => {
         e.preventDefault();
         if (validateForm()) {
             setIsLoading(true);
-            setRegistrationError("");
+            setToast({ message: "", type: "", visible: false });
 
             try {
                 const response = await sendRegistrationRequest(formData);
-                setRegistrationSuccess(true);
                 if (response.success) {
-                    setRegistrationSuccess(true);
+                    setToast({
+                        message: "Registration successful! Redirecting...",
+                        type: "success",
+                        visible: true,
+                    });
                     setTimeout(() => {
                         window.location.href = "/profile";
                     }, 3000);
                 } else {
-                    setRegistrationSuccess(false);
-                    setRegistrationError(response.message);
+                    setToast({
+                        message: response.message || "Registration failed",
+                        type: "error",
+                        visible: true,
+                    });
                 }
             } catch (error) {
-                setRegistrationError(error.message);
+                setToast({
+                    message: error.message,
+                    type: "error",
+                    visible: true,
+                });
             } finally {
                 setIsLoading(false);
             }
@@ -144,14 +150,6 @@ const RegistrationForm = () => {
     return (
         <PixelFormContainer title="Create Account">
             <form className="pixel-form" onSubmit={handleSubmit}>
-                {registrationError && <div className="error-message pixel-error">{registrationError}</div>}
-
-                {registrationSuccess && (
-                    <div className="success-message pixel-success">
-                        {typeof registrationSuccess === "string" ? registrationSuccess : "Registration successful! Redirecting to login..."}
-                    </div>
-                )}
-
                 <PixelInput
                     label="USERNAME"
                     id="username"
@@ -221,6 +219,8 @@ const RegistrationForm = () => {
                     Login here
                 </PixelButton>
             </div>
+
+            <PixelToast message={toast.message} type={toast.type} isVisible={toast.visible} onClose={() => setToast({ ...toast, visible: false })} />
         </PixelFormContainer>
     );
 };

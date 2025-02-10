@@ -1,0 +1,70 @@
+.pixel-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: var(--space-sm);
+    background-color: var(--bg-primary);
+    border: var(--border-style);
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    resize: vertical;
+    transition: all 300ms ease;
+}
+
+.pixel-textarea:focus {
+    outline: none;
+    box-shadow: var(--shadow-glow);
+}
+
+.pixel-textarea.error {
+    border-color: #ff4444;
+}
+
+.pixel-textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.error-message,
+.success-message {
+    padding: var(--space-sm);
+    border: var(--border-style);
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.error-message {
+    border-color: #ff4444;
+    color: #ff4444;
+}
+
+.success-message {
+    border-color: var(--pixel-green);
+    color: var(--pixel-green);
+}
+
+.pixel-input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .game-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .game-form-grid .pixel-button[type="submit"] {
+        grid-column: 1 / -1;
+    }
+}

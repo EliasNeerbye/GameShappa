@@ -4,6 +4,7 @@ import { Eye, EyeOff } from "lucide-react";
 import PixelButton from "../components/PixelButton";
 import PixelInput from "../components/PixelInput";
 import PixelFormContainer from "../components/PixelFormContainer";
+import PixelToast from "../components/PixelToast";
 import { AuthContext } from "../auth/AuthContext";
 
 const loginUrl = import.meta.env.VITE_BACKEND_URL + "/api/auth/login";
@@ -23,8 +24,7 @@ const LoginForm = () => {
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [loginError, setLoginError] = useState("");
-    const [loginSuccess, setLoginSuccess] = useState(false);
+    const [toast, setToast] = useState({ message: "", type: "", visible: false });
 
     const validateForm = () => {
         const newErrors = {};
@@ -50,49 +50,67 @@ const LoginForm = () => {
             ...prev,
             [name]: value,
         }));
-        setLoginError(""); // Clear error when user makes changes
+        setToast({ message: "", type: "", visible: false });
+    };
+
+    const sendLoginRequest = async (userData) => {
+        try {
+            const response = await axios.post(
+                loginUrl,
+                {
+                    email: userData.email,
+                    password: userData.password,
+                },
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response.data.message || "Login failed");
+            } else if (error.request) {
+                throw new Error("No response from server. Please try again.");
+            } else {
+                throw new Error("Failed to send request. Please try again.");
+            }
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
             setIsLoading(true);
-            setLoginError("");
+            setToast({ message: "", type: "", visible: false });
 
             try {
-                axios
-                    .post(
-                        loginUrl,
-                        {
-                            email: formData.email,
-                            password: formData.password,
-                        },
-                        {
-                            withCredentials: true,
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
-                    )
-                    .then((response) => {
-                        if (response.data.success) {
-                            setLoginSuccess(true);
-                            setTimeout(() => {
-                                window.location.href = "/profile";
-                            }, 2000);
-                        } else {
-                            setLoginSuccess(false);
-                            setLoginError(response.data.message || "Login failed");
-                        }
+                const response = await sendLoginRequest(formData);
+                if (response.success) {
+                    setToast({
+                        message: "Login successful! Redirecting...",
+                        type: "success",
+                        visible: true,
                     });
-            } catch (error) {
-                if (error.response) {
-                    setLoginError(error.response.data.message || "Login failed");
-                } else if (error.request) {
-                    setLoginError("No response from server. Please try again.");
+                    setTimeout(() => {
+                        window.location.href = "/profile";
+                    }, 3000);
                 } else {
-                    setLoginError("Failed to send request. Please try again.");
+                    setToast({
+                        message: response.message || "Login failed",
+                        type: "error",
+                        visible: true,
+                    });
                 }
+            } catch (error) {
+                setToast({
+                    message: error.message,
+                    type: "error",
+                    visible: true,
+                });
             } finally {
                 setIsLoading(false);
             }
@@ -102,9 +120,6 @@ const LoginForm = () => {
     return (
         <PixelFormContainer title="Login">
             <form className="pixel-form" onSubmit={handleSubmit}>
-                {loginError && <div className="error-message pixel-error">{loginError}</div>}
-                {loginSuccess && <div className="success-message pixel-success">Login successful! Redirecting...</div>}
-
                 <PixelInput
                     label="EMAIL"
                     id="email"
@@ -145,6 +160,8 @@ const LoginForm = () => {
                     Register here
                 </PixelButton>
             </div>
+
+            <PixelToast message={toast.message} type={toast.type} isVisible={toast.visible} onClose={() => setToast({ ...toast, visible: false })} />
         </PixelFormContainer>
     );
 };

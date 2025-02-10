@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import RegistrationForm from "./pages/RegistrationForm";
 import LogoutPage from "./pages/LogoutPage";
 import LoginForm from "./pages/LoginForm";
+import GameForm from "./pages/GameForm";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path="/register" element={<RegistrationForm />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/logout" element={<LogoutPage />} />
+                <Route path="/games/new" element={<GameForm />} />
             </Routes>
         </>
     );

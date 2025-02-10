@@ -39,7 +39,7 @@ const NavBar = () => {
                             {user ? (
                                 <>
                                     <a href="/profile" className="navbar-link">
-                                        {user.name} (Profile)
+                                        Profile
                                     </a>
                                     <a href="/settings" className="navbar-link">
                                         Settings

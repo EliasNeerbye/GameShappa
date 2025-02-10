@@ -1,5 +1,5 @@
 .pixel-form-container {
-    max-width: min(600px, 90%);
+    max-width: min(1200px, 95%);
     margin: var(--space-lg) auto;
     padding: var(--space-md);
     border: var(--border-style);
@@ -19,4 +19,11 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
+}
+
+@media (max-width: 768px) {
+    .pixel-form-container {
+        margin: var(--space-sm) auto;
+        padding: var(--space-sm);
+    }
 }

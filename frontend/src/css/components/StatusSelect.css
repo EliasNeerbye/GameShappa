@@ -1,0 +1,53 @@
+.status-select {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.status-select label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--text-primary);
+}
+
+.status-select select {
+    width: 100%;
+    padding: var(--space-sm);
+    background-color: var(--bg-primary);
+    border: var(--border-style);
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 300ms ease;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-primary) 50%),
+                      linear-gradient(135deg, var(--text-primary) 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+                         calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px,
+                    5px 5px;
+    background-repeat: no-repeat;
+}
+
+.status-select select:focus {
+    outline: none;
+    box-shadow: var(--shadow-glow);
+}
+
+.status-select select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.status-select select option {
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    padding: var(--space-sm);
+}
+
+@media (max-width: 768px) {
+    .status-select select {
+        padding: var(--space-xs) var(--space-sm);
+    }
+}
