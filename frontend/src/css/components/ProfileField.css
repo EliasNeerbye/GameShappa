@@ -1,0 +1,27 @@
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    border: var(--border-style);
+    background-color: var(--bg-secondary);
+    transition: all 300ms ease;
+}
+
+.profile-field:hover {
+    box-shadow: var(--shadow-pixel);
+    transform: translate(-0.3rem, -0.3rem);
+}
+
+.profile-field-label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+}
+
+.profile-field-value {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}

@@ -1,5 +1,3 @@
-import "../css/pages/LandingPage.css";
-
 export default function LandingPage() {
     return (
         <>
