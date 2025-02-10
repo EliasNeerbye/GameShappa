@@ -7,6 +7,7 @@ import LogoutPage from "./pages/LogoutPage";
 import LoginForm from "./pages/LoginForm";
 import GameForm from "./pages/GameForm";
 import ProfilePage from "./pages/ProfilePage";
+import GameList from "./pages/GameList";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="/games/new" element={<GameForm />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/games" element={<GameList />} />
             </Routes>
         </>
     );
