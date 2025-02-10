@@ -8,6 +8,7 @@ import LoginForm from "./pages/LoginForm";
 import GameForm from "./pages/GameForm";
 import ProfilePage from "./pages/ProfilePage";
 import GameList from "./pages/GameList";
+import GamePage from "./pages/GamePage";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/games/new" element={<GameForm />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/games" element={<GameList />} />
+                <Route path="/game/:id" element={<GamePage />} />
             </Routes>
         </>
     );
