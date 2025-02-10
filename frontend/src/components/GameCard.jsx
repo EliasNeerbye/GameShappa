@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "../css/components/GameCard.css";
 
 const GameCard = ({ game }) => {
-    const { title, originalPrice, discount, shortDescription, publisher, developer, releaseDate, status } = game;
+    const { _id, title, originalPrice, discount, shortDescription, publisher, developer, releaseDate, status } = game;
 
     const discountedPrice = originalPrice * (1 - discount / 100);
 
@@ -27,12 +27,17 @@ const GameCard = ({ game }) => {
                 <strong>Price:</strong> ${discountedPrice.toFixed(2)}
                 {discount > 0 && <s> ${originalPrice.toFixed(2)}</s>}
             </p>
+
+            <button className="pixel-button" onClick={() => (window.location.href = `/game/${_id}`)}>
+                More Information
+            </button>
         </div>
     );
 };
 
 GameCard.propTypes = {
     game: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         originalPrice: PropTypes.number.isRequired,
         discount: PropTypes.number.isRequired,
