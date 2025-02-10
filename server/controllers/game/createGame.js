@@ -36,7 +36,7 @@ const postGame = async (req, res) => {
         res.status(201).json({
             message: "Game created successfully",
             success: true,
-            game: savedGame, // Send back the created game with populated tags
+            gameId: savedGame._id,
         });
     } catch (error) {
         console.error(error); // Log the error for debugging
