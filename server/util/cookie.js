@@ -14,7 +14,7 @@ const createCookie = async (res, name, cookie) => {
             httpOnly: true,
             maxAge,
             secure,
-            sameSite: "strict",
+            sameSite: "lax",
         });
         return true;
     } catch (err) {
