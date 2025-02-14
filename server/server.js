@@ -9,19 +9,20 @@ mongoose.connect(process.env.MONGODB_URI).then(console.log(`Connected to mongodb
 
 const corsOptions = {
     origin: function (origin, callback) {
-        const allowedOrigins = ["http://gameshappa.caracal.ikt-fag.no", "http://10.12.45.82", "http://localhost:5173"];
+        const allowedOrigins = ["http://gameshappa.caracal.ikt-fag.no", "https://gameshappa.caracal.ikt-fag.no", "http://10.12.45.82", "http://localhost:5173"];
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
-            callback("CORS not allowed");
+            callback(new Error("CORS not allowed"));
         }
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
-    exposedHeaders: ["Set-Cookie", "Content-Range", "X-Content-Range"],
+    exposedHeaders: ["Set-Cookie"],
     maxAge: 86400,
 };
+
 
 
 // Enable pre-flight requests for all routes
